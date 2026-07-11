@@ -1,0 +1,7 @@
+.git
+.idea
+*.iml
+*.log
+src/test
+target/*
+!target/*.jar
