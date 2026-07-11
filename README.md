@@ -46,7 +46,7 @@ REST API для управления обязательствами (`obligation
 target/backend-0.0.1-SNAPSHOT.jar
 ```
 
-Запуск проекта:
+Запуск проекта (миграции применятся автоматически):
 
 ```bash
 docker compose up --build
