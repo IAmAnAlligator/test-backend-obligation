@@ -37,7 +37,7 @@ REST API для управления обязательствами (`obligation
 Перед первым запуском необходимо собрать jar:
 
 ```bash
-./mvnw clean package -DskipTests
+./mvnw clean package
 ```
 
 После успешной сборки появится файл:
@@ -79,12 +79,6 @@ docker compose down -v
 ```
 
 # 2. Запуск тестов
-
-**Предварительно поднять контейнер с БД:**
-
-```bash
-docker compose up -d
-```
 
 Для запуска тестов локально:
 
