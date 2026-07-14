@@ -273,4 +273,105 @@ PATCH /obligations/cancel
 
 # 6. Примеры запросов
 
-[Postman-коллекция](https://security-astronaut-69727357-s-team.postman.co/workspace/My-Workspace~520fe9e1-471c-4541-82fe-dd76e6bc69db/request/25271817-e24c9aa8-2680-4b3b-9f82-70cb10782fcd?action=share&creator=25271817)
+## Создать обязательство (POST)
+
+```bash
+curl -X POST http://localhost:8080/api/obligations \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Netflix",
+    "amount": 12.99,
+    "currency": "USD",
+    "category": "SUBSCRIPTION",
+    "recurrence": "MONTHLY",
+    "next_payment_date": "2026-07-22"
+  }'
+```
+
+---
+
+## Получить список обязательств (GET)
+
+Все обязательства:
+
+```bash
+curl http://localhost:8080/api/obligations
+```
+
+Только по категории:
+
+```bash
+curl "http://localhost:8080/api/obligations?category=SUBSCRIPTION"
+```
+
+Только по статусу:
+
+```bash
+curl "http://localhost:8080/api/obligations?status=ACTIVE"
+```
+
+По категории и статусу одновременно:
+
+```bash
+curl "http://localhost:8080/api/obligations?category=SUBSCRIPTION&status=ACTIVE"
+```
+
+---
+
+## Получить ближайшие обязательства (GET)
+
+За ближайшие 7 дней (по умолчанию):
+
+```bash
+curl http://localhost:8080/api/obligations/upcoming
+```
+
+За ближайшие 30 дней:
+
+```bash
+curl "http://localhost:8080/api/obligations/upcoming?days=30"
+```
+
+---
+
+## Зафиксировать оплату обязательства (POST)
+
+```bash
+curl -X POST http://localhost:8080/api/obligations/04699e2e-f4cb-4138-b877-bb59c4d82e16/pay \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 9.99
+  }'
+```
+
+---
+
+## Отменить обязательство (PATCH)
+
+```bash
+curl -X PATCH http://localhost:8080/api/obligations/35d71971-7524-43aa-be5e-8e744bfc6b70/cancel
+```
+
+---
+
+## Удалить обязательство (DELETE)
+
+```bash
+curl -X DELETE http://localhost:8080/api/obligations/1fdc0ca9-257d-405b-a920-8cc746aa9ff8
+```
+
+---
+
+## Подписаться на SSE-события
+
+```bash
+curl -N http://localhost:8080/api/obligations/events
+```
+
+После удаления обязательства сервер отправит событие вида:
+
+```text
+"type": "obligation_deleted",
+"id": "b71ca7a2-3678-4a7c-8ce9-2dfd3b098fdb"
+```
+
